@@ -22,11 +22,21 @@
 
 module doorbell(
     //Todo: define inputs here
-    );
+	input a,
+	input b,
+	input sel,
+	output out
+	);
     
     //Todo: define registers and wires here
-
-
+	reg out;
+	
     //Todo: define your logic here                 
-      
+      always
+	if (sel)
+	#5
+	out<=b;
+	else
+	#5
+	out<=a;
 endmodule
