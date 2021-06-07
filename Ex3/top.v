@@ -20,11 +20,11 @@
 
 module monitor (
     //Todo: add ports 
-	input clk;
-	input rst;
-	input change;
-	input on_off;
-	output [7,0] counter_out
+	input clk,
+	input rst,
+	input change,
+	input on_off,
+	output [7:0] counter_out
     );
                     
     //Todo: add registers and wires, if needed
