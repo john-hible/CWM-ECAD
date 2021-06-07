@@ -33,5 +33,6 @@ module blinds(
     wire   out;
          
       //Todo: add you logic here
+	assign out=((a==0)&&(b==0)) ? func[0] || out=((a==0)&&(b==1)) ? func[1] || out=((a==1)&&(b==0)) ? func[2] : func[3];
 
 endmodule
