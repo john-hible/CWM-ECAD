@@ -31,7 +31,6 @@ initial begin
 
 //Todo: User logic
 	initial begin
-	counter_out = 8'b0;
 	rst = 0;
 	change = 0;
 	on_off = 0;
@@ -43,12 +42,14 @@ initial begin
 	change = 1; 
 	on_off = 1;
 	#40
+	on_off = 0;
+	#20 
 	change = 0;
     	end
 //Todo: Finish test, check for success
 	initial begin
 	#100
-	if (counter_out == 5) begin
+	if (counter_out == 10) begin
 	$display("***TEST PASSED***");
 	end
 	else begin
