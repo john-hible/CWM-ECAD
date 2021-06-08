@@ -34,6 +34,10 @@ initial begin
 	rst = 0;
 	change = 0;
 	on_off = 0;
+	#10
+
+	forever begin
+	#CLK_PERIOD
 
 	#10
 	rst = 1;
@@ -65,6 +69,8 @@ initial begin
 	
 	change = 0;
 	end
+	end
+
 //Todo: Finish test, check for success
 	initial begin
 	#300
