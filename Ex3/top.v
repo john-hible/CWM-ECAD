@@ -28,12 +28,12 @@ module monitor (
     );
                     
     //Todo: add registers and wires, if needed
-	reg counter_out[7:0];
+	reg counter_out;
 
     //Todo: add user logic
 	always @ (posedge clk or posedge rst) begin
 	if (rst) begin
-	counter_out <= 0;
+	counter_out <= 8'b0;
 	end
 	else if (change == 0) begin
 	end
@@ -41,7 +41,7 @@ module monitor (
 	counter_out <= counter_out + 1;
 	end
 	else begin
-	counter_out = counter_out - 1;
+	counter_out <= counter_out - 1;
 	end
 	end 
       
