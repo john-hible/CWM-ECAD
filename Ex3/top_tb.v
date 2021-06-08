@@ -14,7 +14,7 @@ module top_tb(
     );
     
 //Todo: Parameters
-	parameter CLK_PERIOD = 5;
+	parameter CLK_PERIOD = 10;
 //Todo: Regitsers and wires
 	reg clk;
 	reg rst;
@@ -34,23 +34,41 @@ initial begin
 	rst = 0;
 	change = 0;
 	on_off = 0;
+
 	#10
 	rst = 1;
-	#5
+
+	#10
+	if (counter_out != 0) begin
+	$display("***TEST FAILED***");
+	end
+	
 	rst = 0;
-	#15 
-	change = 1; 
-	on_off = 1;
 	#30
+	if (counter_out != 0) begin
+	$display("***TEST FAILED***");
+	end
+
+	change = 1;
+	on_off = 1;
+	#60
+	if (counter_out != 6) begin
+	$display("***TEST FAILED***");
+	end
+
 	change = 1;
 	on_off = 0;
-	#20 
+	#60
+	if (counter_out != 0) begin
+	$display("***TEST FAILED***");
+	end 
+	
 	change = 0;
-    	end
+	end
 //Todo: Finish test, check for success
 	initial begin
-	#150
-	if (counter_out == 10) begin
+	#300
+	if (counter_out == 0) begin
 	$display("***TEST PASSED***");
 	end
 	else begin
