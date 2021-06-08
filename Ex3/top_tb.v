@@ -41,14 +41,15 @@ initial begin
 	#15 
 	change = 1; 
 	on_off = 1;
-	#40
+	#30
+	change = 1;
 	on_off = 0;
 	#20 
 	change = 0;
     	end
 //Todo: Finish test, check for success
 	initial begin
-	#100
+	#150
 	if (counter_out == 10) begin
 	$display("***TEST PASSED***");
 	end

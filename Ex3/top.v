@@ -31,18 +31,18 @@ module monitor (
 	reg [7:0] counter_out;
 
     //Todo: add user logic
-	always @ (posedge clk or posedge rst) begin
+	always @ (posedge clk) begin
 	if (rst) begin
 	counter_out <= 8'b0;
 	end
-	else if (change) begin
-		if (on_off) begin
-		counter_out <= counter_out + 1;
-		end
-		else begin
-		counter_out <= counter_out - 1;
-		end
-		end
+	else if (change==0) begin	
+	end
+	else if (on_off) begin
+	counter_out <= counter_out + 1;
+	end
+	else begin
+	counter_out <= counter_out - 1;
+	end
 	end 
       
 endmodule
