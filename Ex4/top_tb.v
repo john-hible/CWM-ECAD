@@ -30,7 +30,7 @@ initial begin
 
 //User logic
 	initial begin
-
+//Testing rst
 	rst = 1;
 	button = 1;
 	err = 0;
@@ -40,9 +40,9 @@ initial begin
 	end
 	end
 
-
+//Testing cycling over colours
 	initial begin
-	#20
+	#80
 	colour_prev = colour;
 	rst = 0;
 	button = 1;	
@@ -53,18 +53,24 @@ initial begin
 	err = 1;
 	end
 	
+	if ((colour == 7)||(colour == 0)) begin
+	err = 1;
+	end
+	
 	if (button == 1) begin
 		if ((colour_prev == 6)&&(colour != 1)) begin
 		err = 1;
+		$display("***TEST FAILED 1***");
 		end
 	
-		else if (colour != (colour_prev +1)) begin
+		else if ((colour != (colour_prev +1))&&(colour_prev != 6)) begin
 		err = 1;
+		$display("***TEST FAILED 2***");
 		end
 	end
 
 	colour_prev = colour;
-	if  (button) begin
+	if (button) begin
 	button = 0;
 	end
 	else begin
