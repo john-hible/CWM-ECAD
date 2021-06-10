@@ -16,12 +16,12 @@ module top_tb(
 //Regitsers and wires
 	reg clk;
 	reg [4:0] temperature;
-	reg temperature_prev;
 	reg heating_prev;
 	reg cooling_prev;
 	wire heating;
 	wire cooling;
 	reg err;
+	reg [4:0] temperature_prev;
 	
 //Clock generation
 initial begin
@@ -62,17 +62,18 @@ initial begin
 	temperature_prev = temperature;
 	heating_prev = heating;
 	cooling_prev = cooling;
-
+	#50
+	
 	if ((heating)&&(cooling)) begin
 	err = 1;
 	end
-	
+
 	if (!(heating_prev)&&(!(cooling_prev))) begin
 		if (((temperature_prev > 22)||(temperature_prev == 22))&&(!(cooling))) begin
 		err = 1;
 		$display("***TEST FAILED 1***");
 		end
-		if (((temperature_prev < 18)||(temperature_prev == 18))&&(!(heating))) begin
+		if (((temperature_prev < 18)||(temperature_prev == 18))&&((heating))) begin
 		err = 1;
 		$display("***TEST FAILED 2***");
 		end
