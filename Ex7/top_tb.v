@@ -132,5 +132,5 @@ initial begin
 	end
 
 //Instantiate counter module
-	lights_selector top(clk,sel,rst,button,colour,rgb,light);
+	lights_selector top(clk,sel,rst,button,light);
 endmodule

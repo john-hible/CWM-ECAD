@@ -24,12 +24,15 @@ module lights_selector(clk,sel,rst,button,light);
 	wire enable;
 	wire [2:0] colour;
 	wire [23:0] rgb;
+	reg [23:0] light;
 
+	always @ (posedge clk) begin
 	if (!(sel)) begin
 	light = 16777215;
 	end
 	else begin
 	light = rgb;	
+	end
 	end
 
 	LED lights(clk,rst,button,colour);
