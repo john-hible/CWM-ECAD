@@ -12,10 +12,13 @@ module top_tb(
     );
     
 //Parameters
-	parameter CLK_PERIOD = 5;
+	parameter CLK_PERIOD = 10;
 //Regitsers and wires
 	reg clk;
 	reg [4:0] temperature;
+	reg temperature_prev;
+	reg heating_prev;
+	reg cooling_prev;
 	wire heating;
 	wire cooling;
 	reg err;
@@ -30,32 +33,66 @@ initial begin
 //User logic
 
 	initial begin
-	#10
+	#20
 	err = 0;
 	temperature = 16;
+	temperature_prev = temperature;
 
 	
 	forever begin
 	#20
-	if ((heating)&&(cooling)) begin
-	err = 1;
-	end
-	
 	if (temperature < 26) begin
 	temperature = temperature + 2;
-
 	end
 
 	else begin
 	forever begin
 	#20
-	if ((heating)&&(cooling)) begin
-	err = 1;
-	end
 	temperature = temperature - 2;
 	end
 	end
+	end
+	end
+	
+	initial begin
+	#10
+	forever begin
+	#10
+	
+	temperature_prev = temperature;
+	heating_prev = heating;
+	cooling_prev = cooling;
 
+	if ((heating)&&(cooling)) begin
+	err = 1;
+	end
+	
+	if (!(heating_prev)&&(!(cooling_prev))) begin
+		if (((temperature_prev > 22)||(temperature_prev == 22))&&(!(cooling))) begin
+		err = 1;
+		$display("***TEST FAILED 1***");
+		end
+		if (((temperature_prev < 18)||(temperature_prev == 18))&&(!(heating))) begin
+		err = 1;
+		$display("***TEST FAILED 2***");
+		end
+	end
+
+	else if ((heating_prev)&&(!(cooling_prev))) begin
+		if (((temperature_prev > 20)||(temperature_prev == 20))&&(heating)) begin
+		err = 1;
+		$display("***TEST FAILED 3***");
+		end
+	end
+
+	else if (!(heating_prev)&&(cooling_prev)) begin
+		if (((temperature_prev < 20)||(temperature_prev == 20))&&(cooling)) begin
+		err = 1;
+		$display("***TEST FAILED 4***");
+		end
+	end
+	
+	
 	end
 	end
 
