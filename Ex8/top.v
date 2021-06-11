@@ -14,10 +14,14 @@
 
 
 module top(
-    input clk_p,
-    input clk_n,
+	input clk_p,
+	input clk_n,
+	input rst_n,
+	input [4:0] temperature,
+	output heating,
+	output cooling,
      //Todo: add all other ports besides clk_n and clk_p 
-   );
+	);
     
 
    /* clock infrastructure, do not modify */
@@ -37,5 +41,6 @@ module top(
       );
 
 //Add logic here
-
+	AC aircon(clk,temperature,heating,cooling)
+	
 endmodule
