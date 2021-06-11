@@ -28,10 +28,10 @@ module lights_selector(clk,sel,rst,button,light);
 
 	always @ (posedge clk) begin
 	if (!(sel)) begin
-	light = 16777215;
+	light <= 16777215;
 	end
-	else begin
-	light = rgb;	
+	if (sel) begin
+	light <= rgb;	
 	end
 	end
 

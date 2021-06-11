@@ -19,10 +19,10 @@ module top_tb(
 	reg rst;
 	reg button;
 	reg err;
+	reg enable;
+	wire [2:0] colour;
+	wire [23:0] rgb;
 	reg [23:0] light_prev;
-	reg [2:0] colour_prev;
-	reg [2:0] colour;
-	reg [23:0] rgb;
 	wire [23:0] light;
 	
 //Clock generation
@@ -37,13 +37,16 @@ initial begin
 	rst = 1;
 	err = 0;
 	button = 0;
+	sel = 1;
+	enable = 1;
+
 	#20
 	if (light != 0) begin
 	err = 1;
 	end
 
 	sel = 0;
-	#10
+	#20
 	if (light != 16777215) begin
 	err =1;
 	end
@@ -51,11 +54,11 @@ initial begin
 	end
 
 	initial begin
-	#30
+	#50
+	sel = 1;
 	rst = 0;
 	button = 0;
-	light_prev = light;
-	colour_prev = colour;
+	light_prev = light;	
 
 	forever begin
 	#20
@@ -63,53 +66,13 @@ initial begin
 	if ((button == 0)&&(light != light_prev)) begin
 	err = 1;
 	end
-
-	if ((colour == 0)&&(rgb!=0)) begin
-	err = 1;
-	end
 	
-	if ((colour == 1)&&(rgb!=255)) begin
+	if (rgb != light) begin
 	err = 1;
 	end
 
-	if ((colour == 2)&&(rgb!=65280)) begin
-	err = 1;
-	end
-
-	if ((colour == 3)&&(rgb!=65535)) begin
-	err = 1;
-	end
-	
-	if ((colour == 4)&&(rgb!=16711680)) begin
-	err = 1;
-	end
-
-	if ((colour == 5)&&(rgb!=16711935)) begin
-	err = 1;
-	end
-
-	if ((colour == 6)&&(rgb!=16776960)) begin
-	err = 1;
-	end
-
-	if ((colour == 7)&&(rgb!=16777215)) begin
-	err = 1;
-	end
-	
-	if (button == 1) begin
-		if ((colour_prev == 6)&&(colour != 1)) begin
-		err = 1;
-		$display("***TEST FAILED 1***");
-		end
-	
-		else if ((colour != (colour_prev +1))&&(colour_prev != 6)) begin
-		err = 1;
-		$display("***TEST FAILED 2***");
-		end
-	end
-	
 	light_prev = light;
-	colour_prev = colour;
+	
 	if (button) begin
 	button = 0;
 	end
@@ -118,7 +81,7 @@ initial begin
 	end
 
 	end
-	end	
+	end
 //Finish test, check for success
 	initial begin
 	#300
@@ -133,4 +96,6 @@ initial begin
 
 //Instantiate counter module
 	lights_selector top(clk,sel,rst,button,light);
+	LED lights(clk,rst,button,colour);
+	RGB RGB(clk,enable,colour,rgb);
 endmodule
