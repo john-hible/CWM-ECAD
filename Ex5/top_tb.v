@@ -59,10 +59,8 @@ initial begin
 	forever begin
 	#10
 	
-	temperature_prev = temperature;
-	heating_prev = heating;
-	cooling_prev = cooling;
-	#50
+	
+	#10
 	
 	if ((heating)&&(cooling)) begin
 	err = 1;
@@ -92,7 +90,9 @@ initial begin
 		$display("***TEST FAILED 4***");
 		end
 	end
-	
+	temperature_prev = temperature;
+	heating_prev = heating;
+	cooling_prev = cooling;
 	
 	end
 	end
