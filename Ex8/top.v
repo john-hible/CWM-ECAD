@@ -13,6 +13,8 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
+///*** Almost had it working in the end, but not quite, I know the last few errors are in the test bench, and then I know to look at report logs etc... for the answers to last part of 8 ***
+
 module top(
 	input clk_p,
 	input clk_n,
