@@ -36,7 +36,7 @@ module lights_selector(clk,sel,rst,button,light);
 	end
 
 	LED lights(clk,rst,button,colour);
-	RGB RGB(clk,enable,colour,rgb);
+	converter RGBconverter(clk,enable,colour,rgb);
 
 endmodule
 

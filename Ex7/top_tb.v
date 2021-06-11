@@ -50,7 +50,6 @@ initial begin
 	if (light != 16777215) begin
 	err =1;
 	end
-
 	end
 
 	initial begin
@@ -97,5 +96,5 @@ initial begin
 //Instantiate counter module
 	lights_selector top(clk,sel,rst,button,light);
 	LED lights(clk,rst,button,colour);
-	RGB RGB(clk,enable,colour,rgb);
+	converter RGBconverter(clk,enable,colour,rgb);
 endmodule
