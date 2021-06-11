@@ -22,7 +22,7 @@ set_property -dict [list CONFIG.Write_Width_A {24} CONFIG.Write_Depth_A {8} CONF
 #Todo: Add your IP here
 
 read_verilog "lights.v"
-read_verilog "RGB.v"
+read_verilog "RGBconverter.v"
 read_verilog "top.v"
 read_verilog "top_tb.v"
 

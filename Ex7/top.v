@@ -25,18 +25,20 @@ module lights_selector(clk,sel,rst,button,light);
 	wire [2:0] colour;
 	wire [23:0] rgb;
 	reg [23:0] light;
+	
+	
+	LED lights(clk,rst,button,colour);
+	converter RGBconverter(clk,enable,colour,rgb);
 
 	always @ (posedge clk) begin
 	if (!(sel)) begin
 	light <= 16777215;
 	end
-	if (sel) begin
-	light <= rgb;	
+	else begin
+	light <= rgb;
 	end
 	end
 
-	LED lights(clk,rst,button,colour);
-	converter RGBconverter(clk,enable,colour,rgb);
 
 endmodule
 

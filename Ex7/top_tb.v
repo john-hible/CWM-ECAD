@@ -12,7 +12,7 @@ module top_tb(
     );
     
 //Parameters
-	parameter CLK_PERIOD = 10;
+	parameter CLK_PERIOD = 5;
 //Regitsers and wires
 	reg clk;
 	reg sel;
@@ -20,8 +20,6 @@ module top_tb(
 	reg button;
 	reg err;
 	reg enable;
-	wire [2:0] colour;
-	wire [23:0] rgb;
 	reg [23:0] light_prev;
 	wire [23:0] light;
 	
@@ -38,7 +36,7 @@ initial begin
 	err = 0;
 	button = 0;
 	sel = 1;
-	enable = 1;
+	enable = 0;
 
 	#20
 	if (light != 0) begin
@@ -60,14 +58,21 @@ initial begin
 	light_prev = light;	
 
 	forever begin
-	#20
+	#10
 	
 	if ((button == 0)&&(light != light_prev)) begin
 	err = 1;
+	$display("***TEST FAILED 1***");
 	end
 	
-	if (rgb != light) begin
+	if ((light_prev == 0)&&(button)&&(light != 255)) begin
 	err = 1;
+	$display("***TEST FAILED 2***");
+	end
+	
+	if ((light_prev == 16776960)&&(button)&&(light !=16777215)) begin
+	err=1;
+	$display("***TEST FAILED 3***");
 	end
 
 	light_prev = light;
@@ -95,6 +100,4 @@ initial begin
 
 //Instantiate counter module
 	lights_selector top(clk,sel,rst,button,light);
-	LED lights(clk,rst,button,colour);
-	converter RGBconverter(clk,enable,colour,rgb);
 endmodule
