@@ -12,7 +12,7 @@
 //  outputs:
 //           heating, cooling
 //////////////////////////////////////////////////////////////////////////////////
-module AC (
+module aircon (
     //add ports 
 	input clk,
 	input [4:0] temperature,

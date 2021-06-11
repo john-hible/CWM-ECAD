@@ -17,9 +17,13 @@ module top(
 	input clk_p,
 	input clk_n,
 	input rst_n,
-	input [4:0] temperature,
+	input temperature_0,
+	input temperature_1,
+	input temperature_2,
+	input temperature_3,
+	input temperature_4,
 	output heating,
-	output cooling,
+	output cooling
      //Todo: add all other ports besides clk_n and clk_p 
 	);
     
@@ -41,6 +45,9 @@ module top(
       );
 
 //Add logic here
-	AC aircon(clk,temperature,heating,cooling)
+	wire [4:0] temperature;
+	assign temperature={temperature_4,temperature_3,temperature_2,temperature_1,temperature_0};
+
+	aircon aircon(clk,temperature,heating,cooling);
 	
 endmodule

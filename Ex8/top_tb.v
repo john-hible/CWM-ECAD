@@ -15,21 +15,24 @@ module top_tb(
 //Parameters
 	parameter CLK_PERIOD = 10;
 //Regitsers and wires
-	reg clk;
+	reg clk_p;
+	wire clk_n;
+	reg rst_n;
 	reg [4:0] temperature;
 	reg heating_prev;
 	reg cooling_prev;
 	wire heating;
 	wire cooling;
 	reg err;
-	reg [4:0] temperature_prev;
 	
 //Clock generation
-initial begin
-       clk = 1'b0;
-       forever
-         #(CLK_PERIOD/2) clk=~clk;
-     end
+	initial
+	begin
+	clk_p = 1'b0;
+	forever
+	#(CLK_PERIOD/2) clk_p=~clk_p;
+	end
+	assign clk_n = ~clk_p;
 
 //User logic
 
@@ -40,23 +43,18 @@ initial begin
 
 	#20
 	temperature = 16;
-	temperature_prev = temperature;
 	
 	#20
 	temperature = 18;
-	temperature_prev = temperature;
 
 	#20
 	temperature = 20;
-	temperature_prev = temperature;
 
 	#20
 	temperature = 22;
-	temperature_prev = temperature;
 
 	#20
 	temperature = 24;
-	temperature_prev = temperature;
 
 	end
 	
@@ -77,7 +75,6 @@ initial begin
 	err =1;
 	end
 
-	temperature_prev = temperature;
 	heating_prev = heating;
 	cooling_prev = cooling;
 
@@ -98,5 +95,5 @@ initial begin
 	end
 
 //Instantiate counter module
-	top top(clk,clk,rst_n,temperature,heating,cooling);
+	top top(clk_p,clk_n,rst_n,temperature,heating,cooling);
 endmodule 
