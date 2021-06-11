@@ -60,19 +60,14 @@ initial begin
 	forever begin
 	#10
 	
-	if ((button == 0)&&(light != light_prev)) begin
+	if ((light_prev == 0)&&(button)&&(light != 255)) begin
 	err = 1;
 	$display("***TEST FAILED 1***");
 	end
 	
-	if ((light_prev == 0)&&(button)&&(light != 255)) begin
-	err = 1;
-	$display("***TEST FAILED 2***");
-	end
-	
 	if ((light_prev == 16776960)&&(button)&&(light !=16777215)) begin
 	err=1;
-	$display("***TEST FAILED 3***");
+	$display("***TEST FAILED 2***");
 	end
 
 	light_prev = light;

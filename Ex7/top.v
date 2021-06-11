@@ -28,7 +28,7 @@ module lights_selector(clk,sel,rst,button,light);
 	
 	
 	LED lights(clk,rst,button,colour);
-	converter RGBconverter(clk,enable,colour,rgb);
+	converter RGBconverter(clk,!rst,colour,rgb);
 
 	always @ (posedge clk) begin
 	if (!(sel)) begin
